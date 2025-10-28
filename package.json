@@ -1,0 +1,46 @@
+{
+  "name": "@gozenc/packer",
+  "version": "1.0.0",
+  "description": "Collection of package builder scripts for React libraries.",
+  "type": "module",
+  "main": "index.js",
+  "bin": {
+    "packer": "./bin/packer.js"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "npm",
+    "packer",
+    "package",
+    "builder",
+    "react",
+    "library",
+    "node",
+    "cli",
+    "tools",
+    "version",
+    "bump",
+    "docs",
+    "testing"
+  ],
+  "author": "Fatih Gözenç",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gozenc/package-builder.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gozenc/package-builder/issues"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
