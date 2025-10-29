@@ -35,10 +35,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gozenc/package-builder.git"
+    "url": "git+https://github.com/gozenc/packer.git"
   },
   "bugs": {
-    "url": "https://github.com/gozenc/package-builder/issues"
+    "url": "https://github.com/gozenc/packer/issues"
   },
   "engines": {
     "node": ">=18.0.0"

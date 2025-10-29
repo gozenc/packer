@@ -93,6 +93,18 @@ This command:
 - Copies `docs.html` → `docs/index.html`
 - Copies `dist/` → `docs/dist/`
 
+**Configuration Options:**
+
+```bash
+packer docs --dist=build --docs-dir=public --docs-file=index.html
+```
+
+Available parameters:
+
+- `--dist` - Build directory (default: `dist`)
+- `--docs-dir` - Documentation output directory (default: `docs`)
+- `--docs-file` - Source HTML file (default: `docs.html`)
+
 **Note**: The `docs/` folder should be added to `.gitignore` to avoid committing generated files. Only `docs.html` (the source file) should be committed to your repository.
 
 ### `packer verify`
@@ -113,6 +125,16 @@ This command:
 6. Verifies no `react-jsx-runtime` is bundled (critical for React libraries)
 7. Cleans up temporary files
 
+**Configuration Options:**
+
+```bash
+packer verify --dist=build
+```
+
+Available parameters:
+
+- `--dist` - Build directory to verify (default: `dist`)
+
 This is the most thorough test and should be run before publishing to npm.
 
 ### `packer preview`
@@ -122,6 +144,20 @@ Start a local HTTP server to preview your documentation in a browser.
 ```bash
 packer preview
 ```
+
+**Configuration Options:**
+
+```bash
+packer preview --host=localhost --port=3000 --docs-dir=public
+```
+
+Available parameters:
+
+- `--host` - Server host (default: `127.0.0.1`)
+- `--port` - Server port (default: `8080`)
+- `--docs-dir` - Documentation directory to serve (default: `docs`)
+
+Default behavior:
 
 - Serves files from project root
 - Default URL: `http://127.0.0.1:8080/`

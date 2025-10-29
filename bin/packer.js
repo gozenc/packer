@@ -45,11 +45,21 @@ ${Object.entries(commands)
   help                 Show this help message
 
 Examples:
-  packer bump                    # Interactive version bump
-  packer bump 1.2.3              # Bump to specific version
-  packer docs                    # Sync documentation
-  packer verify                  # Verify package before publishing
-  packer preview                 # Preview docs in browser
+  packer bump                              # Interactive version bump
+  packer bump 1.2.3                        # Bump to specific version
+  packer docs                              # Sync documentation
+  packer docs --dist=<dir> --docs-dir=<dir>
+  packer verify                            # Verify package before publishing
+  packer verify --dist=<dir>
+  packer preview                           # Preview docs in browser
+  packer preview --host=<host> --port=<port>
+
+Configuration Options:
+  --dist=<dir>         Build directory (default: dist)
+  --host=<host>        Server host (default: 127.0.0.1)
+  --port=<port>        Server port (default: 8080)
+  --docs-dir=<dir>     Documentation directory (default: docs)
+  --docs-file=<file>   Source HTML file (default: docs.html)
 
 For more information, visit: ${
     packageJson.repository?.url || packageJson.homepage || ""
