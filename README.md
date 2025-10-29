@@ -43,9 +43,8 @@ If installed locally, add scripts to your `package.json`:
   "scripts": {
     "bump": "packer bump",
     "docs": "packer docs",
-    "test:package": "packer test:package",
-    "test:local": "packer test:local",
-    "test:browser": "packer test:browser"
+    "verify": "packer verify",
+    "preview": "packer preview"
   }
 }
 ```
@@ -96,45 +95,32 @@ This command:
 
 **Note**: The `docs/` folder should be added to `.gitignore` to avoid committing generated files. Only `docs.html` (the source file) should be committed to your repository.
 
-### `packer test:package`
+### `packer verify`
 
-Quick verification of package structure before publishing.
-
-```bash
-packer test:package
-```
-
-Checks:
-
-- ✅ `dist/` folder exists
-- ✅ Main entry file exists (`dist/index.js`)
-- ✅ TypeScript definitions exist (`dist/index.d.ts`)
-- 📋 Displays package metadata
-
-### `packer test:local`
-
-Comprehensive local package testing using `npm pack`.
+Comprehensive package verification before publishing. This command builds, packs, and thoroughly tests your package to ensure it's ready for npm.
 
 ```bash
-packer test:local
+packer verify
 ```
 
 This command:
 
 1. Builds the package (`npm run build`)
 2. Packs it (`npm pack`)
-3. Extracts and verifies structure
-4. Checks for required files
+3. Extracts and verifies the tarball structure
+4. Checks for required files (package.json, README.md, LICENSE, dist files)
 5. Analyzes bundle size
-6. Verifies no `react-jsx-runtime` is bundled
+6. Verifies no `react-jsx-runtime` is bundled (critical for React libraries)
 7. Cleans up temporary files
 
-### `packer test:browser`
+This is the most thorough test and should be run before publishing to npm.
 
-Start a local HTTP server to test your built package in a browser.
+### `packer preview`
+
+Start a local HTTP server to preview your documentation in a browser.
 
 ```bash
-packer test:browser
+packer preview
 ```
 
 - Serves files from project root
@@ -173,25 +159,19 @@ This keeps your repository clean by only tracking the source `docs.html` file, n
 Here's a typical release workflow using packer:
 
 ```bash
-# 1. Build your package
-npm run build
+# 1. Verify package (builds, packs, and tests)
+packer verify
 
-# 2. Test the package structure
-packer test:package
+# 2. Preview docs in browser (optional)
+packer preview
 
-# 3. Test the package locally
-packer test:local
-
-# 4. Test in browser (optional)
-packer test:browser
-
-# 5. Sync documentation
+# 3. Sync documentation
 packer docs
 
-# 6. Bump version
+# 4. Bump version
 packer bump
 
-# 7. Publish to npm
+# 5. Publish to npm
 npm publish
 ```
 
@@ -200,7 +180,7 @@ Or combine steps in a release script:
 ```json
 {
   "scripts": {
-    "release": "npm run build && packer docs && packer bump && npm publish"
+    "release": "packer verify && packer docs && packer bump && npm publish"
   }
 }
 ```

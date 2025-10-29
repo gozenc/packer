@@ -10,23 +10,19 @@ const __dirname = dirname(__filename);
 const commands = {
   bump: {
     description: "Bump package version",
-    file: "bump-version.js",
+    file: "bump.js",
   },
   docs: {
     description: "Sync docs from docs.html to docs/",
-    file: "sync-docs.js",
+    file: "docs.js",
   },
-  "test:browser": {
-    description: "Start a local server to test in browser",
-    file: "test-browser.js",
+  verify: {
+    description: "Verify package before publishing (build, pack, and test)",
+    file: "verify.js",
   },
-  "test:local": {
-    description: "Test the built package locally using npm pack",
-    file: "test-local.js",
-  },
-  "test:package": {
-    description: "Verify package structure before publishing",
-    file: "test-package.js",
+  preview: {
+    description: "Start a local server to preview docs in browser",
+    file: "preview.js",
   },
 };
 
@@ -52,9 +48,8 @@ Examples:
   packer bump                    # Interactive version bump
   packer bump 1.2.3              # Bump to specific version
   packer docs                    # Sync documentation
-  packer test:browser            # Start test server
-  packer test:local              # Test package locally
-  packer test:package            # Verify package structure
+  packer verify                  # Verify package before publishing
+  packer preview                 # Preview docs in browser
 
 For more information, visit: ${
     packageJson.repository?.url || packageJson.homepage || ""
@@ -97,9 +92,11 @@ async function main() {
     const commandPath = join(__dirname, "..", "lib", commandConfig.file);
     const commandModule = await import(commandPath);
 
-    // If the module has a default export, call it
+    // If the module has a default export, call it with remaining args
     if (commandModule.default) {
-      await commandModule.default();
+      // Pass remaining arguments (after the command) to the module
+      const commandArgs = args.slice(1);
+      await commandModule.default(...commandArgs);
     }
   } catch (error) {
     console.error(`❌ Failed to execute command '${command}':`, error.message);
