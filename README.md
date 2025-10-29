@@ -78,12 +78,12 @@ Updates:
 
 - `package.json`
 - `package-lock.json`
-- `html/test-dist.html` (softwareVersion in JSON-LD)
-- `docs/index.html` (softwareVersion in JSON-LD)
+- `docs.html` (softwareVersion in JSON-LD, if exists)
+- `docs/index.html` (softwareVersion in JSON-LD, if exists)
 
 ### `packer docs`
 
-Sync documentation from `html/test-dist.html` to `docs/` directory for GitHub Pages.
+Sync documentation from `docs.html` to `docs/` directory for GitHub Pages or Cloudflare Pages.
 
 ```bash
 packer docs
@@ -91,8 +91,10 @@ packer docs
 
 This command:
 
-- Copies `html/test-dist.html` → `docs/index.html`
+- Copies `docs.html` → `docs/index.html`
 - Copies `dist/` → `docs/dist/`
+
+**Note**: The `docs/` folder should be added to `.gitignore` to avoid committing generated files. Only `docs.html` (the source file) should be committed to your repository.
 
 ### `packer test:package`
 
@@ -137,7 +139,7 @@ packer test:browser
 
 - Serves files from project root
 - Default URL: `http://127.0.0.1:8080/`
-- Serves `html/test-dist.html` at root path
+- Serves `docs/index.html` at root path
 - Press `Ctrl+C` to stop the server
 
 ## Project Structure
@@ -146,14 +148,25 @@ This tool expects your React library project to follow this structure:
 
 ```
 your-project/
-├── dist/              # Built package output
-├── html/
-│   └── test-dist.html # Test HTML file
-├── docs/              # GitHub Pages documentation (generated)
+├── dist/              # Built package output (gitignored)
+├── docs/              # Generated docs for Pages hosting (gitignored)
+├── docs.html          # Source HTML file for documentation
 ├── src/               # Source files
 ├── package.json
 └── package-lock.json
 ```
+
+**Important**: Add the following to your `.gitignore`:
+
+```gitignore
+# Build outputs
+dist/
+
+# Docs folder (generated from docs.html)
+docs/
+```
+
+This keeps your repository clean by only tracking the source `docs.html` file, not the generated `docs/` folder.
 
 ## Typical Workflow
 
