@@ -13,7 +13,7 @@ const commands = {
     file: "bump-version.js",
   },
   docs: {
-    description: "Sync docs from html/test-dist.html to docs/",
+    description: "Sync docs from docs.html to docs/",
     file: "sync-docs.js",
   },
   "test:browser": {
