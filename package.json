@@ -1,6 +1,6 @@
 {
   "name": "@gozenc/packer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Collection of package builder scripts for React libraries.",
   "type": "module",
   "main": "index.js",
